@@ -28,8 +28,10 @@
 
 ## Workflow
 1. leader inits own cluster using [Quickstart](#using-quickstart-guide)
-2. leader inits collaborative cluster for shared storage (see [here](https://ipfscluster.io/documentation/collaborative/setup/)):
-    1. run ``./ipfs-cluster-service/ipfs-cluster-service init --consensus crdt``
+2. leader inits collaborative cluster for shared storage (see [guide](https://ipfscluster.io/documentation/collaborative/setup/)):
+    1. run ``./ipfs-cluster-service/ipfs-cluster-service init --consensus crdt``, which leads to:
+        - new identity written to ``C:\Users\sidla\.ipfs-cluster\identity.json``
+        - new empty peerstore written to ``C:\Users\sidla\.ipfs-cluster\peerstore``
     2. create configuration template for followers
     3. distribute confiuigration template
 
