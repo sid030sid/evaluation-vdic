@@ -2,3 +2,4 @@
 docker-compose.yml
 /compose
 /ipfs-cluster-ctl
+/ipfs-cluster-follow
