@@ -29,6 +29,24 @@ version: '3.4'
 services:
 
 ##################################################################################
+## DIC gateway  ################################################################
+##################################################################################
+# following guide: https://www.docker.com/blog/how-to-use-the-node-docker-official-image/#What-is-the-Node-Docker-Official-Image
+#  dic-gateway:
+#    container_name: dic-gateway
+#    image: "node:19-bullseye"
+#    command: npm start
+#    volumes:
+#      - ./dic-gateway:/usr/src/app
+#    ports:
+#      - "3000:3000"
+#    environment:
+#      - NODE_ENV=production
+#    depends_on:
+#      - ipfs0
+#      - cluster0
+
+##################################################################################
 ## Cluster PEER 0 ################################################################
 ##################################################################################
 
