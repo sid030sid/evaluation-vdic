@@ -80,7 +80,6 @@ router.route('/write').post(async (req, res) => {
 
         // get file from body
         const file = req.body.file
-        console.log(file)
 
         // post file to DIC and get its cid
         //TODO
