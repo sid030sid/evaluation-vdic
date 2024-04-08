@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const axios = require('axios')
 const fs = require('fs');
+require('dotenv').config()
 
 // HELPER FUNCTIONS
 // function to add a line to a CSV file
@@ -19,7 +20,20 @@ const documentMeasurement = (path, line) => {
 // TODO: simplfy do not do as in real-life implementation ... here the OID4VP based authentication is performed
 
 // MIDDLEWARE CHECKING AUTHENTICATION
-// TODO
+router.use(async (req, res, next) => {
+    try {
+        // check if the request is authenticated
+        const token = req.headers["authorization"].split(" ")[1];
+        if (token === process.env.SECRET) {      
+            next();
+        }else{
+            res.status(401).json({ message: "You are not authenticated!" });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+  }
+); 
 
 // ENDPOINTS FOR INTERACTING WITH DIC
 // GET: file based on inputted cid
@@ -58,7 +72,7 @@ router.route('/read/:cid').get(async (req, res) => {
 })
 
 // POST: file to DIC
-router.route('/write/:cid').post(async (req, res) => {
+router.route('/write').post(async (req, res) => {
     try {
 
         // start measurement
@@ -66,6 +80,7 @@ router.route('/write/:cid').post(async (req, res) => {
 
         // get file from body
         const file = req.body.file
+        console.log(file)
 
         // post file to DIC and get its cid
         //TODO
@@ -83,7 +98,7 @@ router.route('/write/:cid').post(async (req, res) => {
 
             // send info to requester
             res.send({
-                file:JSON.stringify(file)
+                file:file
             })
         }else{
             res.send(`ERROR: writing file to DIC failed!`)

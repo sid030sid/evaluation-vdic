@@ -3,3 +3,4 @@
 /ipfs-cluster-service
 /ipfs-cluster-follow
 /dic-gateway/node_modules
+/dic-gateway/.env
