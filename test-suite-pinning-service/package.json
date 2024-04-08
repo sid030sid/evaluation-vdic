@@ -1,0 +1,17 @@
+{
+  "name": "test-suite-pinning-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@web3-storage/w3up-client": "^12.5.0",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "moralis": "^2.25.2"
+  }
+}

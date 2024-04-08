@@ -4,3 +4,5 @@
 /ipfs-cluster-follow
 /dic-gateway/node_modules
 /dic-gateway/.env
+/test-suite-pinning-service/node_modules
+/test-suite-pinning-service/.env
