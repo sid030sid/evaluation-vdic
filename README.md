@@ -1,5 +1,14 @@
 # IPFS Cluster test
 
+## Tesing Verifiable Decentralized IPFS Cluster for off-chain storage with trustworth data permanency
+1. read performance in VDICs depending on file size and number of nodes (vs. web3 storage vs. own node)
+2. write performance in VDICs depending on file size and number of nodes (vs. web3 storage vs. own node)
+3. estimate average latency in VDICs depending on file size and numbder of node
+
+NOTE: 
+- number of nodes: {3, 5, 10, 15, 20}
+- file size (in KB): {1, 10, 100, 1000, 10000}
+
 ## Using Quickstart guide
 - following this [guide](https://ipfscluster.io/documentation/quickstart/)
 
