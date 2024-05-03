@@ -14,7 +14,7 @@ const writeToMoralis = async (data) => {
         // upload file to Moralis IPFS pinning service
         const response = await Moralis.EvmApi.ipfs.uploadFolder({
             abi: [{
-                path:"controller-"+Math.random(),
+                path:"id-"+Math.random(),
                 content:data
             }],
         });
@@ -26,13 +26,14 @@ const writeToMoralis = async (data) => {
 
         // send response to frontend
         if(ipfsLink !== ""){
-            res.send(ipfsLink)
+            return(ipfsLink)
         }else{
-            res.send("ERROR")
+            return("ERROR")
         }
         
     } catch (error) {
         console.log(error)
+        return("ERROR")
     }
 }
 
@@ -41,9 +42,15 @@ const readFromMoralis = (url) => { //url similar to: https://ipfs.moralis.io:205
         url
     ).then(
         res => {
-            console.log(res.data)
+            return(res.data)
         }
     ).catch(err=>{
         console.log(err)
+        return("ERROR")
     })
 }
+
+module.exports = {
+    readFromMoralis: readFromMoralis,
+    writeToMoralis: writeToMoralis
+ }
