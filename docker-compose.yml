@@ -29,15 +29,15 @@ version: '3.4'
 services:
 
 ##################################################################################
-## DIC gateway  ################################################################
+## VDIC gateway  ################################################################
 ##################################################################################
 # following guide: https://www.docker.com/blog/how-to-use-the-node-docker-official-image/#What-is-the-Node-Docker-Official-Image
-#  dic-gateway:
-#    container_name: dic-gateway
+#  vdic-gateway:
+#    container_name: vdic-gateway
 #    image: "node:19-bullseye"
 #    command: npm start
 #    volumes:
-#      - ./dic-gateway:/usr/src/app
+#      - ./vdic-gateway:/usr/src/app
 #    ports:
 #      - "3000:3000"
 #    environment:
