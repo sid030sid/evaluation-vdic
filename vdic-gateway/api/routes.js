@@ -22,7 +22,7 @@ const documentMeasurement = (path, line) => {
 // MIDDLEWARE CHECKING AUTHENTICATION
 router.use(async (req, res, next) => {
     try {
-        // check if the request is authenticated
+        // check if the requester posses correct and not expired token
         const token = req.headers["authorization"].split(" ")[1];
         if (token === process.env.SECRET) {      
             next();
@@ -35,7 +35,7 @@ router.use(async (req, res, next) => {
   }
 ); 
 
-// ENDPOINTS FOR INTERACTING WITH DIC
+// ENDPOINTS OF GATEWAY
 // GET: file based on inputted cid
 router.route('/read/:cid').get(async (req, res) => {
     try {

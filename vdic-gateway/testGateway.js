@@ -8,11 +8,11 @@ const toBeUploadedJson = {
     "test": "ok?!"
 }
 
-const testUploadAndDownloadToDic = () => {
+const testUploadAndDownloadToVdic = () => {
 
     // write file from DIC
     axios.post(
-        "http://localhost:3001/dic-gateway/write", 
+        "http://localhost:3001/gateway/write", 
         {
             file : toBeUploadedJson,
         },
@@ -30,7 +30,7 @@ const testUploadAndDownloadToDic = () => {
 
     // read file from DIC
     axios.get(
-        "http://localhost:3001/dic-gateway/read/123456",
+        "http://localhost:3001/gateway/read/123456",
         {
             headers: {
                 'Authorization': 'Basic ' + secret
@@ -44,4 +44,4 @@ const testUploadAndDownloadToDic = () => {
     })
 }
 
-testUploadAndDownloadToDic()
+testUploadAndDownloadToVdic()

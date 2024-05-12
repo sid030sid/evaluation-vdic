@@ -9,9 +9,9 @@ app.use(cors());
 // For parsing application/json
 app.use(express.json());
 
-// use API (= DIC gateway)
+// use API (= Gateway)
 const apiRouter = require("./api/routes");
-app.use("/dic-gateway", apiRouter);
+app.use("/gateway", apiRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
