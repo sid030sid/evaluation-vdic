@@ -49,7 +49,9 @@ router.route('/read/:cid').get(async (req, res) => {
         const cid = req.params.cid
 
         // get file from VDIC
-        const file = await axios.get(`https://ipfs.io/ipfs/${cid}`)
+        const file = await axios.get(`https://ipfs.io/ipfs/${cid}`) //TODO: check why this times out, maybe file not pinned?
+            //this cid of 1kb.txt file is publicly retrievable: https://ipfs.io/ipfs/QmP5m4vxj9uUwrEJG53bPw3X2onwoywqevrGZ2Yzfngoay
+            //however, new cids are generated if onme uses the write endpoint
 
         // send file to user
         if(file){
