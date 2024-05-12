@@ -32,19 +32,19 @@ services:
 ## VDIC gateway  ################################################################
 ##################################################################################
 # following guide: https://www.docker.com/blog/how-to-use-the-node-docker-official-image/#What-is-the-Node-Docker-Official-Image
-#  vdic-gateway:
-#    container_name: vdic-gateway
-#    image: "node:19-bullseye"
-#    command: npm start
-#    volumes:
-#      - ./vdic-gateway:/usr/src/app
-#    ports:
-#      - "3000:3000"
-#    environment:
-#      - NODE_ENV=production
-#    depends_on:
-#      - ipfs0
-#      - cluster0
+vdic-gateway:
+  container_name: vdic-gateway
+  image: "node:19-bullseye"
+  command: npm start
+  volumes:
+    - ./vdic-gateway:/usr/src/app
+  ports:
+    - "3000:3000"
+  environment:
+    - NODE_ENV=production
+  depends_on:
+    - ipfs0
+    - cluster0
 
 ##################################################################################
 ## Cluster PEER 0 ################################################################
