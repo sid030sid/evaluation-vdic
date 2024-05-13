@@ -9,6 +9,15 @@ NOTE:
 - number of nodes: {3, 5, 10, 15, 20}
 - file size (in KB): {1, 10, 100, 1000, 10000}
 
+## Perform tests
+1. test pinning services:
+    - open terminal and move to folder `test-suite-pinning-service`
+    - to test moralis pinning service coded in `moralis-pinning-service.js`, run command `node moralis-write-test.js` and then run `node moralis-read-test.js`. These two commands resepctively populates the csv file `moralis-write-performance-measurements.csv` and `moralis-read-performance-measurements.csv`.
+    - to test pinata pinning service coded in `pinata-pinning-service.js`, run command `node pinata-write-test.js` and then run `node pinata-read-test.js`. These two commands resepctively populates the csv file `pinata-write-performance-measurements.csv` and `pinata-read-performance-measurements.csv`.
+
+2. test VDICs:
+    - TODO
+
 ## Using Quickstart guide
 - following this [guide](https://ipfscluster.io/documentation/quickstart/)
 
