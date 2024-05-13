@@ -10,7 +10,7 @@ fs.readdirSync(testFolder).forEach(async fileName => {
     const data = fs.readFileSync(path.join(testFolder, fileName), 'utf8'); //read file
 
     // upload to pinata 30 times and measure each time performance
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 30; i++) {
         const start = new Date(); //start timer
         const uploadedFileIPFSpath= await pinataPinningService.writeToPinata(testFolder+fileName); //write file to pinata
         const end = new Date(); //end timer
