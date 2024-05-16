@@ -3,10 +3,6 @@ const path = require('path');
 const axios = require("axios")
 const secret = "password"
 
-//TODO: make two reading possibilites in routes.js: 
-//1. read form node (docker exec -ti ipfs0 sh and then ipfs cat QmeDtmGQaPtD1YTzjSDKyyNkCbPHpukNDURiM7JoZzGvut or ipfs get QmeDtmGQaPtD1YTzjSDKyyNkCbPHpukNDURiM7JoZzGvut) 
-//2. read from public ipfs gateway: axios get: http://localhost:8080/ipfs/Qma5zNnnAuDdtpF5d8WjzqBGfTYSenh4Uss2zu8RP8Awj5
-
 //import pinata-write-performance-measurements.csv file and iterate over each line
 const data = fs.readFileSync('./vdic-write-performance-measurements.csv', 'utf8').split("\n");
 data.forEach(async line => {

@@ -6,6 +6,7 @@ require('dotenv').config()
 
 //TODO: make two reading possibilites in routes.js: 
 //1. read form node (docker exec -ti ipfs0 sh and then ipfs cat QmeDtmGQaPtD1YTzjSDKyyNkCbPHpukNDURiM7JoZzGvut or ipfs get QmeDtmGQaPtD1YTzjSDKyyNkCbPHpukNDURiM7JoZzGvut) 
+//--> or enfore the authentication process of the ipfs api of ipfs cluster node 0 --> neglect for now
 //2. read from public ipfs gateway: axios get: http://localhost:8080/ipfs/Qma5zNnnAuDdtpF5d8WjzqBGfTYSenh4Uss2zu8RP8Awj5
 
 //IPFS CLUSTER CTL COMMANDS are the following ENDPOINTS:
@@ -48,16 +49,14 @@ router.use(async (req, res, next) => {
 ); 
 
 // ENDPOINTS OF GATEWAY
-// GET: file based on inputted cid
+// GET: file via gateway based on inputted cid
 router.route('/read/:cid').get(async (req, res) => {
     try {
         // get data from body
         const cid = req.params.cid
 
         // get file from VDIC
-        const file = await axios.get(`https://ipfs.io/ipfs/${cid}`) //TODO: check why this times out, maybe file not pinned?
-            //this cid of 1kb.txt file is publicly retrievable: https://ipfs.io/ipfs/QmP5m4vxj9uUwrEJG53bPw3X2onwoywqevrGZ2Yzfngoay
-            //however, new cids are generated if onme uses the write endpoint
+        const file = await axios.get(`http://localhost:8080/ipfs/${cid}`)
 
         // send file to user
         if(file){
@@ -74,6 +73,49 @@ router.route('/read/:cid').get(async (req, res) => {
         error.response ? console.error(error.response.data) : console.error(error)
     }
 })
+
+// GET: file from node --> TODO:test 
+router.route('/readFromNode/:cid').get(async (req, res) => {
+    try {
+        // get data from body
+        const cid = req.params.cid
+
+        const { exec } = require('child_process');
+
+        // Open ipfs cli in docker 
+        exec('docker exec -ti ipfs0 sh', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error executing command: ${error}`);
+                return;
+            }
+            console.log(`Command output: ${stdout}`);
+        });
+
+        // retrieve file from ipfs node0 using the ipfs cli in docker
+        exec('ipfs cat '+cid, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error executing command: ${error}`);
+                return;
+            }
+            console.log(`Command output: ${stdout}`);
+            
+            // send file to user
+            if(file){
+
+                // send info to requester
+                res.send({
+                    cid:cid,
+                    file:stdout
+                })
+            }else{
+                res.send(`ERROR: reading file ${cid} failed!`)
+            }
+        });
+    } catch (error) {
+        error.response ? console.error(error.response.data) : console.error(error)
+    }
+})
+
 
 // POST: file to VDIC
 router.route('/write').post(async (req, res) => {
