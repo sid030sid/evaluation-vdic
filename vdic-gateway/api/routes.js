@@ -1,7 +1,12 @@
 const router = require('express').Router();
 const axios = require('axios')
+const path = require('path');
 const fs = require('fs');
 require('dotenv').config()
+
+//TODO: make two reading possibilites in routes.js: 
+//1. read form node (docker exec -ti ipfs0 sh and then ipfs cat QmeDtmGQaPtD1YTzjSDKyyNkCbPHpukNDURiM7JoZzGvut or ipfs get QmeDtmGQaPtD1YTzjSDKyyNkCbPHpukNDURiM7JoZzGvut) 
+//2. read from public ipfs gateway: axios get: http://localhost:8080/Qma5zNnnAuDdtpF5d8WjzqBGfTYSenh4Uss2zu8RP8Awj5
 
 //IPFS CLUSTER CTL COMMANDS are the following ENDPOINTS:
     //stauts ls command --> GET: http://127.0.0.1:9094/peers
@@ -15,6 +20,7 @@ require('dotenv').config()
         //pin ls <cid> --> GET: http://127.0.0.1:9094/allocations/QmP5m4vxj9uUwrEJG53bPw3X2onwoywqevrGZ2Yzfngoay
                         //do not use: status <cid> --> GET: http://127.0.0.1:9094/pins/QmP5m4vxj9uUwrEJG53bPw3X2onwoywqevrGZ2Yzfngoay?local=false --> here we can get the latency from as timestamp of each node's pin info indicates when the file was added
         //see difference: https://ipfscluster.io/documentation/reference/ctl/
+        //here it says i should use "ipfs-cluster-ctl status": https://ipfscluster.io/documentation/guides/pinning/ --> "The Cluster-pinning stage"
 
     //read file from VDICs via IPFS:
         //1. GET: https://ipfs.io/ipfs/QmP5m4vxj9uUwrEJG53bPw3X2onwoywqevrGZ2Yzfngoay
@@ -73,25 +79,22 @@ router.route('/read/:cid').get(async (req, res) => {
 router.route('/write').post(async (req, res) => {
     try {
 
-        // start measurement
-        const start = new Date() //TODO: move this to testGateway.js
-
         // get path from body
-        const path = req.body.path
+        const file = req.body.file
 
         // post file to VDIC and get its cid
-        const resWriteToVdic = await axios.post(
+        const resWriteToVdic = await axios.post( // add file  
             "http://127.0.0.1:9094/add?chunker=size-262144&cid-version=0&format=unixfs&hash=sha2-256&hidden=false&layout=&local=false&mode=recursive&name=&no-pin=false&nocopy=false&progress=false&raw-leaves=false&recursive=false&replication-max=0&replication-min=0&shard=false&shard-size=104857600&stream-channels=true&user-allocations=&wrap-with-directory=false",
-            {path:path}, //TODO this probably needs to be corrected,
+            {path:path.join(".../test-data/", file)}, //TODO this probably needs to be corrected,
             {
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
             }
-        ) // add file                
+        )               
         const cid = resWriteToVdic.data.cid
         
-        const resPinToVdic = await axios.post(
+        const resPinToVdic = await axios.post( // pin file
             "http://127.0.0.1:9094/pins/ipfs/"+cid+"?mode=recursive&name=&replication-max=0&replication-min=0&shard-size=0&user-allocations="
         ) //pin file
 

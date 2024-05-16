@@ -28,7 +28,7 @@ const testUploadAndDownloadToVdic = () => {
             axios.post(
                 "http://localhost:3001/gateway/write", 
                 {
-                    path : path.join(testFolder, file),
+                    file:file,
                 },
                 {
                     headers: {
@@ -48,39 +48,10 @@ const testUploadAndDownloadToVdic = () => {
                     const writePerformance = end - start;
                     const size = Buffer.byteLength(data, 'utf8') / 1024;
                     const writeRes = fs.appendFileSync('./vdic-write-performance-measurements.csv', `${start},VDIC,write,${cid},${size},${writePerformance}\n`); 
-
-                    wait5Seconds();
-
-                    // read file from VDIC
-                    const startRead = new Date(); //start timer
-                    axios.get(
-                        "http://localhost:3001/gateway/read/"+cid,
-                        {
-                            headers: {
-                                'Authorization': 'Basic ' + secret
-                            }
-                        }
-                    )
-                    .then(res => {
-                        const endRead = new Date(); //end timer
-                        //check if file was written to VDICs
-                        if(res.data.file){	
-                            //document read performance
-                            const readPerformance = endRead - startRead;
-                            const size = Buffer.byteLength(data, 'utf8') / 1024;
-                            const readRes = fs.appendFileSync('./vdic-read-performance-measurements.csv', `${startRead},VDIC,write,${cid},${size},${readPerformance}\n`);
-                        }else{
-                            console.log("Error reading file with CID: "+cid);
-                        }
-                    }).catch(err => {
-                        console.log(err)
-                    })
-
                 }
             }).catch(err => {
                 console.log(err)
             })
-            
 
             //wait 5 seconds till next for loop iteration
             await new Promise(resolve => setTimeout(resolve, 5000));

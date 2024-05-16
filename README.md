@@ -16,7 +16,9 @@ NOTE:
     - to test pinata pinning service coded in `pinata-pinning-service.js`, run command `node pinata-write-test.js` and then run `node pinata-read-test.js`. These two commands resepctively populates the csv file `pinata-write-performance-measurements.csv` and `pinata-read-performance-measurements.csv`.
 
 2. test VDICs:
-    - TODO
+    - run docker container of ipfs cluster
+    - run vdic-gate way node.js component: nom run dev or npm start
+    - run testGateway.js
 
 ## Using Quickstart guide
 - following this [guide](https://ipfscluster.io/documentation/quickstart/)
