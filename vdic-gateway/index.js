@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 
 // For parsing application/json
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 
 // use API (= Gateway)
 const apiRouter = require("./api/routes");

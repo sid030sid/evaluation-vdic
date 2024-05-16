@@ -28,7 +28,7 @@ const testUploadAndDownloadToVdic = () => {
             axios.post(
                 "http://localhost:3001/gateway/write", 
                 {
-                    file:file,
+                    file:data,
                 },
                 {
                     headers: {
