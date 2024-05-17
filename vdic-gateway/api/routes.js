@@ -56,8 +56,8 @@ router.route('/read/:cid').get(async (req, res) => {
         const cid = req.params.cid
 
         // get file from VDIC
-        const file = await axios.get(`http://localhost:8080/ipfs/${cid}`)
-
+        const resRead = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`,{"Content-Type": "text/plain"})
+        const file = resRead.data
         // send file to user
         if(file){
 
