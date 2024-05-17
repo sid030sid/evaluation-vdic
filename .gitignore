@@ -1,5 +1,5 @@
 /ipfs-cluster-ctl
-/compose
+compose/
 /ipfs-cluster-service
 /ipfs-cluster-follow
 /vdic-gateway/node_modules
