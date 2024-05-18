@@ -30,9 +30,10 @@ NOTE:
     - note 2: we followed this [guide](https://ipfscluster.io/documentation/quickstart/) for implementing ipfs clusters in docker
 - move with terminal to folder `vdic-gateway` and run `npm install`
 - move with terminal to folder `test-suite-pinning-service` and run `npm install`
+- in the root folder start a python virtual environment with all packages installed listed in `requirements.txt`
 
 ### Perform tests
-1. test pinning services:
+1. test pinning service providers:
     - open terminal and move to folder `test-suite-pinning-service`
     - to test moralis pinning service coded in `moralis-pinning-service.js`, run command `node moralis-write-test.js` and then run `node moralis-read-test.js`. These two commands resepctively populates the csv file `moralis-write-performance-measurements.csv` and `moralis-read-performance-measurements.csv`.
     - to test pinata pinning service coded in `pinata-pinning-service.js`, run command `node pinata-write-test.js` and then run `node pinata-read-test.js`. These two commands resepctively populates the csv file `pinata-write-performance-measurements.csv` and `pinata-read-performance-measurements.csv`.
@@ -47,6 +48,10 @@ NOTE:
     - run command `node vdic-read-test.js <numberOfNodes>` to test reading of data in VDIC (do this after having performed write test)
         - note 1: the number of nodes inputted must match the number of nodes of the ipfs cluster you are currently running in docker
         - note 2: re-running this command leads to the deletion of the measurements of the previous run
+
+3. evaluate test results:
+    - run entire script inside `evaluation.ipynb`
+    - resulting figures are stored in folder `evaluation-figures`
 
 ### End tests
 - Stop the docker composition, e.g. by running ``docker-compose kill`` in the subfolder of the folder `ipfs-clusters` that corresponds to the currently running ipfs cluster.
