@@ -1,9 +1,10 @@
 # IPFS Cluster test
 
 ## Testing Verifiable Decentralized IPFS Cluster for off-chain storage with trustworth data permanency
+In this repom, we test the...
 1. read performance in VDICs depending on file size and number of nodes (vs. web3 storage vs. own node)
 2. write performance in VDICs depending on file size and number of nodes (vs. web3 storage vs. own node)
-3. estimate average latency in VDICs depending on file size and numbder of node
+3. average latency in VDICs depending on file size and number of node (latency = time needed for a file to fully replicate in VDIC)
 
 NOTE: 
 - number of nodes: {3, 5, 10, 15, 20}
@@ -19,14 +20,17 @@ NOTE:
     - start running docker composition that runs IPFS Cluster with desired number of nodes (See folder `ipfs-clusters`)
     - move to folder: `vdic-gateway` in terminal
     - run gateway by entering in terminal ``npm start``
-    - open another terminal and move to `vdic-gateway` folder and run command `node vdic-write-test.js <numberOfNodes>` to test writing data to VDIC (note: the number of nodes inputted must match the number of nodes of the ipfs cluster you are currently running in docker)
+    - open another terminal and move to `vdic-gateway` folder and run command `node vdic-write-test.js <numberOfNodes>` to test writing data to VDIC
+        - note 1: the number of nodes inputted must match the number of nodes of the ipfs cluster you are currently running in docker
+        - note 2: re-running this command leads to the deletion of the measurements of the previous run
     - run command `node vdic-read-test.js <numberOfNodes>` to test reading of data in VDIC (do this after having performed write test)
-
-## Using Quickstart guide
-- following this [guide](https://ipfscluster.io/documentation/quickstart/)
+        - note 1: the number of nodes inputted must match the number of nodes of the ipfs cluster you are currently running in docker
+        - note 2: re-running this command leads to the deletion of the measurements of the previous run
 
 ### Set up
-- run ``docker-compose up`` in terminal while being located in subfolder of folder `ipfs-clusters` (do this for each subfolder) NOTE: in case you want to remove all files from an ipfs cluster: delete the compose folder in this repo, delete the docker folder and then re-run docker-compose up
+- run ``docker-compose up`` in terminal while being located in subfolder of folder `ipfs-clusters` (do this for each subfolder) 
+    - note 1: in case you want to remove all files from an ipfs cluster: delete the compose folder in this repo, delete the docker folder and then re-run docker-compose up
+    - note 2: we followed this [guide](https://ipfscluster.io/documentation/quickstart/) for implementing ipfs clusters in docker
 - move with terminal to folder `vdic-gateway` and run `npm install`
 - move with terminal to folder `test-suite-pinning-service` and run `npm install`
 

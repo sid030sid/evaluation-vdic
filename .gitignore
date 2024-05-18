@@ -6,5 +6,4 @@ compose/
 /vdic-gateway/.env
 /test-suite-pinning-service/node_modules
 /test-suite-pinning-service/.env
-/test-data/*
 .venv
