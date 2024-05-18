@@ -23,7 +23,7 @@ const testUploadAndDownloadToVdic = () => {
         const data = fs.readFileSync(path.join(testFolder, file), 'utf8'); //read to be uploaded files
 
         // upload to moralis 30 times and measure each time performance
-        for (let i = 0; i < 1; i++) { //TOPO: change to 30
+        for (let i = 0; i < 30; i++) { //TOPO: change to 30
             const start = new Date(); //start timer
             // write file to VDIC
             axios.post(
