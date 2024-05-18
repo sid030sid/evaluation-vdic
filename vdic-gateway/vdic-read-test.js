@@ -22,8 +22,6 @@ data.forEach(async line => {
         const cid = lineData[3];
         const size = lineData[4];
 
-        console.log("http://localhost:3001/gateway/read/"+cid)
-
         // read all 150 files which are 30 versions of the same 5 files in test-data
         const start = new Date(); //start timer
         axios.get(
