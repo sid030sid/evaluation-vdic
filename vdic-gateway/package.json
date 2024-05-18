@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "test-dic-gateway": "node testDicGateway.js",
     "dev": "nodemon index.js"
   },
   "author": "",

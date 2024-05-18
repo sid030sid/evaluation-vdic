@@ -5,15 +5,16 @@ const testFolder = '../test-data/';
 
 const secret = "password"
 
-const toBeUploadedJson = {
-    "hey": "this",
-    "is": "a",
-    "test": "ok?!"
+const numberOfNodes = process.argv[2] //3, 5, 10, 15, or 20 inserted as command line argument
+
+//ensure correct command line argument input
+if (!["3", "5", "10", "15", "20"].includes(numberOfNodes)) {
+    console.log("Please enter a valid number of nodes: 3, 5, 10, 15, or 20");
+    process.exit(1);
 }
 
-const wait5Seconds = async () => {
-    await new Promise(resolve => setTimeout(resolve, 5000));
-}
+//clear all data in csv: ${numberOfNodes}-node-vdic-write-performance-measurements.csv
+fs.writeFileSync(`./performance-measurements/${numberOfNodes}-node-vdic-write-performance-measurements.csv`, "");
 
 const testUploadAndDownloadToVdic = () => {
 
@@ -47,7 +48,7 @@ const testUploadAndDownloadToVdic = () => {
                     //document write performance
                     const writePerformance = end - start;
                     const size = Buffer.byteLength(data, 'utf8') / 1024;
-                    const writeRes = fs.appendFileSync('./vdic-write-performance-measurements.csv', `${start},VDIC,write,${cid},${size},${writePerformance}\n`); 
+                    const writeRes = fs.appendFileSync(`./performance-measurements/${numberOfNodes}-node-vdic-write-performance-measurements.csv`, `${start},VDIC,write,${cid},${size},${writePerformance}\n`); 
                 }
             }).catch(err => {
                 console.log(err)

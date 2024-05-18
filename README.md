@@ -16,16 +16,19 @@ NOTE:
     - to test pinata pinning service coded in `pinata-pinning-service.js`, run command `node pinata-write-test.js` and then run `node pinata-read-test.js`. These two commands resepctively populates the csv file `pinata-write-performance-measurements.csv` and `pinata-read-performance-measurements.csv`.
 
 2. test VDICs:
-    - run docker container of ipfs cluster
-    - run vdic-gate way node.js component: nom run dev or npm start
-    - run testGateway.js
+    - start running docker composition that runs IPFS Cluster with desired number of nodes (See folder `ipfs-clusters`)
+    - move to folder: `vdic-gateway` in terminal
+    - run gateway by entering in terminal ``npm start``
+    - open another terminal and move to `vdic-gateway` folder and run command `node vdic-write-test.js <numberOfNodes>` to test writing data to VDIC (note: the number of nodes inputted must match the number of nodes of the ipfs cluster you are currently running in docker)
+    - run command `node vdic-read-test.js <numberOfNodes>` to test reading of data in VDIC (do this after having performed write test)
 
 ## Using Quickstart guide
 - following this [guide](https://ipfscluster.io/documentation/quickstart/)
 
 ### Set up
-- ``docker-compose up`` in root folder of repo
-- open new terminal and execute the ``commands`` listed below
+- run ``docker-compose up`` in terminal while being located in subfolder of folder `ipfs-clusters` (do this for each subfolder) NOTE: in case you want to remove all files from an ipfs cluster: delete the compose folder in this repo, delete the docker folder and then re-run docker-compose up
+- move with terminal to folder `vdic-gateway` and run `npm install`
+- move with terminal to folder `test-suite-pinning-service` and run `npm install`
 
 ### Commands
 - ``./ipfs-cluster-ctl/ipfs-cluster-ctl peers ls`` --> show information about the peers in the cluster
