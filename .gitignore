@@ -4,6 +4,6 @@ compose/
 /ipfs-cluster-follow
 /vdic-gateway/node_modules
 /vdic-gateway/.env
-/test-suite-pinning-service/node_modules
-/test-suite-pinning-service/.env
+/pinning-services/node_modules
+/pinning-services/.env
 .venv
