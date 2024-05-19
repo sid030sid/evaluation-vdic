@@ -1,4 +1,4 @@
-# IPFS Cluster test
+# Evaluation of Verifiable Decentralized IPFS Cluster (VDICs) 
 
 ## Content
 This repo contains:
@@ -14,7 +14,9 @@ This repo contains:
 5. `evaluation.ipynb` containing script and 
 6. `evaluation-figures` folder containing figures produced by running entire `evaluation.ipynb`. These figures are then used in the paper introducing VDICs.
 
-## Testing Verifiable Decentralized IPFS Cluster for off-chain storage with trustworth data permanency
+DISCLAIMER: 
+
+## Testing VDICs as off-chain storage for (D)Apps
 In this repo, we test the...
 1. read performance in VDICs depending on file size and number of nodes (vs. web3 storage vs. own node)
 2. write performance in VDICs depending on file size and number of nodes (vs. web3 storage vs. own node)
