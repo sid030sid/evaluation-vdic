@@ -55,3 +55,4 @@ NOTE:
 3. evaluate test results:
     - run entire script inside `evaluation.ipynb`
     - resulting figures are stored in folder `evaluation-figures`
+        - note: re-running the entire script inside `evaluation.ipynb` leads to the overwrite of all figures in folder `evaluation-figures`
