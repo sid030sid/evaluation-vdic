@@ -17,10 +17,11 @@ This repo contains:
 
 DISCLAIMER: The implemented VDICs in this repo only possess the necessariy components and functionalities to test their read and write performance. Therefore, the code is not advised to be used for production.
 
-## Testing VDICs as off-chain storage for (D)Apps
+## Testing VDICs as off-chain storage for DApps
 In this repo, we test the...
 1. read performance in VDICs depending on file size and number of nodes (vs. pinning services: Pinata and Moralis)
-2. write performance in VDICs depending on file size and number of nodes (vs. pinning services: Pinata and Moralis). We define the write performance equal to latency, which is the time needed for a file to fully replicate in VDICs after its written. This is so because writing data to VDICs is successfull if permanency is guranteed on a technical level which is the case once the newly written file is fully replicated. To achieve this write operation, VDICs bundle the native IPFS Cluster operation of writing files and pinning files together.
+2. write performance in VDICs depending on file size and number of nodes (vs. pinning services: Pinata and Moralis). 
+    - Note: We define the write performance equal to latency, which is the time needed for a file to fully replicate in VDICs after its written. This is so because writing data to VDICs is successfull if permanency is guranteed on a technical level which is the case once the newly written file is fully replicated. To achieve this write operation, VDICs bundle the native IPFS Cluster operation of writing files and pinning files together.
 
 NOTE: 
 - number of nodes: {3, 5, 10, 15, 20}
@@ -42,18 +43,15 @@ NOTE:
 
 2. test VDICs:
     - start running docker composition that runs IPFS Cluster with desired number of nodes (See folder `ipfs-clusters`)
-    - move to folder: `vdic-gateway` in terminal
+    - open terminal and move to folder: `vdic-gateway`
     - run gateway by entering in terminal ``npm start``
     - open another terminal and move to `vdic-gateway` folder and run command `node vdic-write-test.js <numberOfNodes>` to test writing data to VDIC
         - note 1: the number of nodes inputted must match the number of nodes of the ipfs cluster you are currently running in docker
         - note 2: re-running this command leads to the deletion of the measurements of the previous run
-    - run command `node vdic-read-test.js <numberOfNodes>` to test reading of data in VDIC (do this after having performed write test)
+    - run command `node vdic-read-test.js <numberOfNodes>` to test reading of data in VDIC (do this after having performed write test by running: `node vdic-write-test.js <numberOfNodes>`)
         - note 1: the number of nodes inputted must match the number of nodes of the ipfs cluster you are currently running in docker
         - note 2: re-running this command leads to the deletion of the measurements of the previous run
 
 3. evaluate test results:
     - run entire script inside `evaluation.ipynb`
     - resulting figures are stored in folder `evaluation-figures`
-
-### End tests
-- Stop the docker composition, e.g. by running ``docker-compose kill`` in the subfolder of the folder `ipfs-clusters` that corresponds to the currently running ipfs cluster.
