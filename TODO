@@ -1,3 +1,0 @@
-if github allows due to its storage capacity limits, make test-data file available by removing corresponding line in gitignore
-adapt so that testing of vdics is reproducible
-clean the repo for reference in paper

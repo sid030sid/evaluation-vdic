@@ -25,8 +25,8 @@ const testUploadToVdic = () => {
 
         // upload to VDIC 30 times and measure each time performance
         for (let i = 0; i < 30; i++) { 
-            const start = new Date(); //start timer
-            // write file to VDIC
+            const start = new Date(); //start time
+            // permanently write file to VDIC
             axios.post(
                 "http://localhost:3001/gateway/write", 
                 {
