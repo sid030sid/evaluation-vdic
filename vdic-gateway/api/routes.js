@@ -154,12 +154,18 @@ router.route('/write').post(async (req, res) => {
     }
 })
 
-// POST: unpin file from VDIC
-//TODO
-router.route('/unpin').post(async (req, res) => {
+// POST: delte file (unpin file and run garbage collector in VDIC)
+router.route('/delete').post(async (req, res) => {
     try {
         // get path from body
         const cid = req.body.cid
+
+        // unpin file from VDIC
+        const resUnpin = await axios.delete("http://127.0.0.1:9094/pins/ipfs/"+cid)
+
+        // run garbage collector in VDIC
+        const resGarbageCollection = await axios.post("http://127.0.0.1:9094/ipfs/gc?local=false")
+
     } catch (error) {
         error.response ? console.error(error.response.data) : console.error(error)
     }

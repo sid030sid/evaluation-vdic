@@ -16,7 +16,8 @@ if (!["3", "5", "10", "15", "20"].includes(numberOfNodes)) {
 //clear all data in csv: ${numberOfNodes}-node-vdic-write-performance-measurements.csv
 fs.writeFileSync(`./performance-measurements/${numberOfNodes}-node-vdic-write-performance-measurements.csv`, "");
 
-const testUploadAndDownloadToVdic = () => {
+// write test script
+const testUploadToVdic = () => {
 
     // get files from test-data folder
     fs.readdirSync(testFolder).forEach(async file => {
@@ -50,11 +51,11 @@ const testUploadAndDownloadToVdic = () => {
                     const size = Buffer.byteLength(data, 'utf8') / 1024;
                     const writeRes = fs.appendFileSync(`./performance-measurements/${numberOfNodes}-node-vdic-write-performance-measurements.csv`, `${start},VDIC,write,${cid},${size},${writePerformance}\n`);
                     
-                    //unpin and remove file if this is not the 30th iteration of the for-loop
-                    // TODO
+                    //delete newly written file from VDIC 
+                    //if this is not the 30th iteration of the for-loop
                     if(i !== 29){
                         axios.post(
-                            "http://localhost:3001/gateway/unpin", 
+                            "http://localhost:3001/gateway/delete", 
                             {
                                 cid:cid,
                             },
@@ -69,8 +70,6 @@ const testUploadAndDownloadToVdic = () => {
                             console.log(err)
                         })
                     }
-
-
                 }
             }).catch(err => {
                 console.log(err)
@@ -85,4 +84,5 @@ const testUploadAndDownloadToVdic = () => {
     });
 }
 
-testUploadAndDownloadToVdic()
+// run write test
+testUploadToVdic()
