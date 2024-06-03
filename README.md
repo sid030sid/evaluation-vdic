@@ -14,6 +14,7 @@ This repo contains:
     3. performance measurements
 6. `evaluation.ipynb` containing script and 
 7. ``requirements.txt``
+8. all remaining files can be ignored
 
 DISCLAIMER: The implemented VDICs in this repo only possess the necessariy components and functionalities to test their read and write performance. Therefore, the code is not advised to be used for production.
 
