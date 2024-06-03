@@ -22,8 +22,8 @@ const testUploadAndDownloadToVdic = () => {
     fs.readdirSync(testFolder).forEach(async file => {
         const data = fs.readFileSync(path.join(testFolder, file), 'utf8'); //read to be uploaded files
 
-        // upload to moralis 30 times and measure each time performance
-        for (let i = 0; i < 30; i++) { //TOPO: change to 30
+        // upload to VDIC 30 times and measure each time performance
+        for (let i = 0; i < 30; i++) { 
             const start = new Date(); //start timer
             // write file to VDIC
             axios.post(
@@ -48,7 +48,29 @@ const testUploadAndDownloadToVdic = () => {
                     //document write performance
                     const writePerformance = end - start;
                     const size = Buffer.byteLength(data, 'utf8') / 1024;
-                    const writeRes = fs.appendFileSync(`./performance-measurements/${numberOfNodes}-node-vdic-write-performance-measurements.csv`, `${start},VDIC,write,${cid},${size},${writePerformance}\n`); 
+                    const writeRes = fs.appendFileSync(`./performance-measurements/${numberOfNodes}-node-vdic-write-performance-measurements.csv`, `${start},VDIC,write,${cid},${size},${writePerformance}\n`);
+                    
+                    //unpin and remove file if this is not the 30th iteration of the for-loop
+                    // TODO
+                    if(i !== 29){
+                        axios.post(
+                            "http://localhost:3001/gateway/unpin", 
+                            {
+                                cid:cid,
+                            },
+                            {
+                                headers: {
+                                    'Authorization': 'Basic ' + secret
+                                }
+                            }
+                        ).then(res => {
+                            console.log("File unpinned");
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                    }
+
+
                 }
             }).catch(err => {
                 console.log(err)

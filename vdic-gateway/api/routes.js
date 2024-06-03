@@ -154,4 +154,16 @@ router.route('/write').post(async (req, res) => {
     }
 })
 
+// POST: unpin file from VDIC
+//TODO
+router.route('/unpin').post(async (req, res) => {
+    try {
+        // get path from body
+        const cid = req.body.cid
+    } catch (error) {
+        error.response ? console.error(error.response.data) : console.error(error)
+    }
+})
+
+
 module.exports = router;
