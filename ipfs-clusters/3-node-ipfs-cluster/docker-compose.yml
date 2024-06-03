@@ -3,12 +3,12 @@ version: '3.4'
 # This is an example docker-compose file to quickly test an IPFS Cluster
 # with multiple peers on a contained environment.
 
-# It runs 3 cluster peers (cluster0, cluster1...) attached to kubo daemons
-# (ipfs0, ipfs1...) using the CRDT consensus component. Cluster peers
+# It runs 3 cluster peers (cluster3-0, cluter3-1...) attached to kubo daemons
+# (ipfs3-0, ipfs3-1...) using the CRDT consensus component. Cluster peers
 # autodiscover themselves using mDNS on the docker internal network.
 #
-# To interact with the cluster use "ipfs-cluster-ctl" (the cluster0 API port is
-# exposed to the locahost. You can also "docker exec -ti cluster0 sh" and run
+# To interact with the cluster use "ipfs-cluster-ctl" (the cluster3-0 API port is
+# exposed to the locahost. You can also "docker exec -ti cluster3-0 sh" and run
 # it from the container. "ipfs-cluster-ctl peers ls" should show all 3 peers a few
 # seconds after start.
 #
@@ -17,11 +17,11 @@ version: '3.4'
 # as follows:
 #
 # compose/
-# |-- cluster0
-# |-- cluster1
+# |-- cluster3-0
+# |-- cluter3-1
 # |-- ...
-# |-- ipfs0
-# |-- ipfs1
+# |-- ipfs3-0
+# |-- ipfs3-1
 # |-- ...
 #
 # During the first start, default configurations are created for all peers.
@@ -32,25 +32,25 @@ services:
 ## Cluster PEER 0 ################################################################
 ##################################################################################
 
-  ipfs0:
-    container_name: ipfs0
+  ipfs3-0:
+    container_name: ipfs3-0
     image: ipfs/kubo:release
     ports:
       - "4001:4001" # ipfs swarm - expose if needed/wanted
       - "5001:5001" # ipfs api - expose if needed/wanted
       - "8080:8080" # ipfs gateway - expose if needed/wanted
     volumes:
-      - ./compose/ipfs0:/data/ipfs
+      - ./compose/ipfs3-0:/data/ipfs
 
-  cluster0:
-    container_name: cluster0
+  cluster3-0:
+    container_name: cluster3-0
     image: ipfs/ipfs-cluster:latest
     depends_on:
-      - ipfs0
+      - ipfs3-0
     environment:
-      CLUSTER_PEERNAME: cluster0
+      CLUSTER_PEERNAME: cluster3-0
       CLUSTER_SECRET: ${CLUSTER_SECRET} # From shell variable if set
-      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs0/tcp/5001
+      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs3-0/tcp/5001
       CLUSTER_CRDT_TRUSTEDPEERS: '*' # Trust all peers in Cluster
       CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: /ip4/0.0.0.0/tcp/9094 # Expose API
       CLUSTER_MONITORPINGINTERVAL: 2s # Speed up peer discovery
@@ -63,57 +63,57 @@ services:
           # - "9095:9095" # Cluster IPFS Proxy endpoint
           # - "9096:9096" # Cluster swarm endpoint
     volumes:
-      - ./compose/cluster0:/data/ipfs-cluster
+      - ./compose/cluster3-0:/data/ipfs-cluster
 
 ##################################################################################
 ## Cluster PEER 1 ################################################################
 ##################################################################################
 
 # See Cluster PEER 0 for comments (all removed here and below)
-  ipfs1:
-    container_name: ipfs1
+  ipfs3-1:
+    container_name: ipfs3-1
     image: ipfs/kubo:release
     volumes:
-      - ./compose/ipfs1:/data/ipfs
+      - ./compose/ipfs3-1:/data/ipfs
 
-  cluster1:
-    container_name: cluster1
+  cluter3-1:
+    container_name: cluter3-1
     image: ipfs/ipfs-cluster:latest
     depends_on:
-      - ipfs1
+      - ipfs3-1
     environment:
-      CLUSTER_PEERNAME: cluster1
+      CLUSTER_PEERNAME: cluter3-1
       CLUSTER_SECRET: ${CLUSTER_SECRET}
-      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs1/tcp/5001
+      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs3-1/tcp/5001
       CLUSTER_CRDT_TRUSTEDPEERS: '*'
       CLUSTER_MONITORPINGINTERVAL: 2s # Speed up peer discovery
     volumes:
-      - ./compose/cluster1:/data/ipfs-cluster
+      - ./compose/cluter3-1:/data/ipfs-cluster
 
 ##################################################################################
 ## Cluster PEER 2 ################################################################
 ##################################################################################
 
 # See Cluster PEER 0 for comments (all removed here and below)
-  ipfs2:
-    container_name: ipfs2
+  ipfs3-2:
+    container_name: ipfs3-2
     image: ipfs/kubo:release
     volumes:
-      - ./compose/ipfs2:/data/ipfs
+      - ./compose/ipfs3-2:/data/ipfs
 
-  cluster2:
-    container_name: cluster2
+  cluster3-2:
+    container_name: cluster3-2
     image: ipfs/ipfs-cluster:latest
     depends_on:
-      - ipfs2
+      - ipfs3-2
     environment:
-      CLUSTER_PEERNAME: cluster2
+      CLUSTER_PEERNAME: cluster3-2
       CLUSTER_SECRET: ${CLUSTER_SECRET}
-      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs2/tcp/5001
+      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/ipfs3-2/tcp/5001
       CLUSTER_CRDT_TRUSTEDPEERS: '*'
       CLUSTER_MONITORPINGINTERVAL: 2s # Speed up peer discovery
     volumes:
-      - ./compose/cluster2:/data/ipfs-cluster
+      - ./compose/cluster3-2:/data/ipfs-cluster
 
-# For adding more peers, copy PEER 1 and rename things to ipfs2, cluster2.
-# Keep bootstrapping to cluster0.
+# For adding more peers, copy PEER 1 and rename things to ipfs3-2, cluster3-2.
+# Keep bootstrapping to cluster3-0.
