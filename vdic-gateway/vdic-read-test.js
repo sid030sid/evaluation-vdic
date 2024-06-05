@@ -50,3 +50,5 @@ data.forEach(async line => {
         await new Promise(resolve => setTimeout(resolve, 5000));
     }
 });
+
+console.log("Read test done!")

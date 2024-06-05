@@ -69,6 +69,8 @@ const testUploadToVdic = () => {
                         }).catch(err => {
                             console.log(err)
                         })
+                    }else{
+                        console.log("Last iteration of testing writing file: "+cid);
                     }
                 }
             }).catch(err => {
@@ -82,6 +84,7 @@ const testUploadToVdic = () => {
         //wait 10 seconds till next for loop iteration
         await new Promise(resolve => setTimeout(resolve, 10000));
     });
+    console.log("Write test done!")
 }
 
 // run write test
