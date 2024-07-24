@@ -74,4 +74,4 @@ Write performance measures the time needed for newly added files to replicate ac
 
 Our tests show that VDICs with up to 10 nodes achieve write performance comparable to pinning services, with average write operations taking approximately one second or less. The significant increase in write time for VDICs with 15 nodes is attributed to hardware and internet constraints. Generally, writing time increases with the number of nodes in VDICs, suggesting a trade-off between decentralization and write performance in VDICs.
 
-![Average write performance for a 100 KB file to VDICs with varying numbers of nodes compared to pinning services: Pinata and Morali](./evaluation-figures/vdic-average-write-performance-time-by-vdic-size.pn)
+![Average write performance for a 100 KB file to VDICs with varying numbers of nodes compared to pinning services: Pinata and Morali](./evaluation-figures/vdic-average-write-performance-time-by-vdic-size.png)
