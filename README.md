@@ -57,3 +57,21 @@ NOTE:
     - run entire script inside `evaluation.ipynb`
     - resulting figures are stored in folder `evaluation-figures`
         - note: re-running the entire script inside `evaluation.ipynb` leads to the overwrite of all figures in folder `evaluation-figures`
+
+## Test results and interpretation
+The test scripts and Gateway component are implemented in Node.js (version 20.8.1). Docker (version 25.0.3) is used to run IPFS Clusters with varying numbers of nodes. All tests are conducted on a single machine with Windows 11, an AMD Ryzen 7 7735HS processor at 3.20 GHz, and 16 GB of RAM.
+
+### Read performance
+Read performance measures the time required to retrieve data from VDICs, which is crucial for DApps needing instant data availability.
+
+Our tests reveal that VDICs, regardless of their number of nodes, generally exhibit slower read performance compared to the pinning services Pinata and Moralis. This slower read performance makes VDICs less favorable for DApps that demand immediate data access. Despite a slight increase in read time for VDICs with 15 nodes due to hardware and internet constraints, the average read performance for VDICs is around 400 milliseconds. The single gateway of VDICs might present a bottleneck, whereas pinning services likely have more access points and an efficient middleware to manage incoming requests. However, since pinning services do not disclose their technology or the number of nodes used for data replication, a proper comparison with VDIC is not possible. This underscores the transparency issues in pinning services.
+
+![Average read performance for a 100 KB file from VDICs with varying number of nodes compared to pinning services: Pinata and Moralis](./evaluation-figures/vdic-average-read-performance-time-by-vdic-size.png)
+
+
+### Write performance
+Write performance measures the time needed for newly added files to replicate across all VDIC nodes.
+
+Our tests show that VDICs with up to 10 nodes achieve write performance comparable to pinning services, with average write operations taking approximately one second or less. The significant increase in write time for VDICs with 15 nodes is attributed to hardware and internet constraints. Generally, writing time increases with the number of nodes in VDICs, suggesting a trade-off between decentralization and write performance in VDICs.
+
+![Average write performance for a 100 KB file to VDICs with varying numbers of nodes compared to pinning services: Pinata and Morali](./evaluation-figures/vdic-average-write-performance-time-by-vdic-size.pn)
